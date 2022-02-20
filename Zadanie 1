@@ -1,0 +1,81 @@
+import requests
+import tkinter
+from tkinter import ttk
+from PIL import Image, ImageTk
+from math import e
+
+uchwyt = open("Dane.DAT", "r")
+Plik = uchwyt.readlines()
+dct = {}
+
+
+root = tkinter.Tk()
+root.geometry("300x300")
+l = tkinter.Label(root, text="Obsluga wyjatkow")
+l.grid()
+
+response = requests.get(
+    "https://media.istockphoto.com/vectors/abstract-creative-background-vector-id1039532442?k=6&m=1039532442&s=612x612&w=0&h=yDIQZo3NdoBuGN6GZTiJitCPQGz2fAOBW-cvGsa8D4U=")
+file = open("wyjatek.jpg", "wb")
+file.write(response.content)
+
+obrazek = Image.open("wyjatek.jpg")
+photo = ImageTk.PhotoImage(obrazek)
+
+label1 = tkinter.Label(image=photo)
+label1.image = photo
+label1.place(relx=0.5,
+             rely=0.5,
+             anchor='center')
+
+listbox = tkinter.Listbox(root, width=35)
+listbox.grid(row=4, column=0, sticky="news")
+scrollbar = tkinter.Scrollbar(root, orient='vertical', command=listbox.yview)
+scrollbar.grid(row=4, column=6, sticky='ns')
+
+listbox.config(yscrollcommand=scrollbar.set)
+
+
+def Wyjatki():
+    for linia in Plik[1:]:
+        listalinia = linia.split(',')
+        try:
+            numlist = list(map(float, listalinia[1:]))
+            case, x1, x2, x3 = listalinia[0], numlist[0], numlist[1], numlist[2]
+            y = e**(-((x3-x1)/(x2-x1))**2)
+            listbox.insert('end', case, y)
+            print(y)
+
+        except(ZeroDivisionError):
+            listbox.insert('end', case)
+            print("Dzielenie przez zero")
+            listbox.insert('end', "Dzielenie przez zero")
+        except(NameError):
+            listbox.insert('end', case)
+            print("Brak zmiennej")
+            listbox.insert('end', "Brak zmiennej")
+        except(ValueError):
+            listbox.insert('end', case)
+            print("Zly typ")
+            listbox.insert('end', "Zly typ")
+        finally:
+            # tworzę plik do wpisania danych
+            file = open("zapis danych.txt", "a")
+            file.write(str(listalinia[0]))
+            file.write(", ")
+            file.write(str(numlist[0]))  # wpisuję dane do pliku
+            file.write(", ")
+            file.write(str(numlist[1]))
+            file.write(", ")
+            file.write(str(numlist[2]))
+            file.write(", ")
+            file.write(str(y))
+            file.write("\n")
+
+
+b = tkinter.Button(root, text="Wczytaj plik", width=20,
+                   bg="red", fg="white", command=Wyjatki)
+b.grid()
+
+uchwyt.close()
+root.mainloop()
