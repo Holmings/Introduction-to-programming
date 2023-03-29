@@ -6,3 +6,5 @@ Program po wczytaniu odpowiednich parametrów generuje zaszumioną sinusoidę ga
 Program odczytuje tabelę z pliku plik.xslx i udostępnia takie operacje na tabeli: dodawanie lub usunięcie wiersza, sortowanie według wieku, imienia lub numeru buta, wyswietlanie, stworzenie wykresu zależności wzrostu od numeru buta
 #### Zadanie 4
 Program wykorzystuje bibliotekę PyQt5 do interfejsu graficznego. Jest to aplikacja generująca przebiegi czasowe. Wyświetla ich wykres, wykres transformaty Fouriera oraz tabelę wartości po wybraniu odpowiednich przycisków radiowych, pozwala na dostosowanie parametrów oraz na zapis do pliku .csv i .wav
+#### Rates
+Program wczytuje kursy wybranych walut z wykorzystaniem API Narodowego Banku Polskiego. Całość jest przedstawiona z wykorzystaniem interfejsu graficznego Tkinter. Przyciski umożliwiają wybór konkretnej waluty oraz liczbę ostatnich dni, z których kursy chcemy wyświetlić.
