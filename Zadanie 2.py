@@ -80,7 +80,7 @@ def sinusoida(t,A,gamma,f):
     s= A*np.sin(2*np.pi*f*t)*np.e**(-gamma*t)
     return s
 
-p0=[1, 1, 1] #wektor inicjalizujący
+p0=[A, gamma, f] #wektor inicjalizujący
 fit_params, covariance_matrix = curve_fit(sinusoida, t, y,p0=p0)
 print("Parametry fitowania: \na = ", fit_params[0], '\nb = ', fit_params[1],'\nc = ', fit_params[2])
 plt.scatter(t,y)
