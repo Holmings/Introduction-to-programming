@@ -35,7 +35,7 @@ def dodawanie():
             print("Wzrost musi byc liczba wieksza od zera!")
         
     tytul=input("Podaj tytul ulubionej ksiazki/filmu: ")  
-    df=dataframe.append({'imie': imie, 'wiek': wiek, 'numer buta': nrbuta, 'wzrost': wzrost, 'tytul ulubionej ksiazki/filmu': tytul}, ignore_index=True)
+    df.loc[len(df)] = {'imie': imie, 'wiek': wiek, 'numer buta': nrbuta, 'wzrost': wzrost, 'tytul ulubionej ksiazki/filmu': tytul}
     df.to_excel(r'plik.xlsx', index = False)
     print(df)
 
